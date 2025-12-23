@@ -1,29 +1,36 @@
-﻿using System;
 class Program
 {
     static void Main()
     {
-        Console.WriteLine(HospitalSystem.HospitalName);
-        Patient p = new Patient(101, "Sanju", 22);
-        p.SetMedicalHistory("Asthma History");
-        Doctor d = new Doctor("Dr. Mehta", "Neurologist", 9001);
-        Appointment app = new Appointment();
-        app.ScheduleAppointment(DateTime.Now, "Online");
-        DiagnosisService ds = new DiagnosisService();
-        string condition = "Unknown";
+        string h=HospitalSystem.HospitalName;
+        Console.Write("Enter Patient ID: ");
+        int pid=Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter Patient Name: ");
+        string pname=Console.ReadLine();
+        Console.Write("Enter Patient Age: ");
+        string ageInput=Console.ReadLine();
+        InputValidator validator=new InputValidator();
+        int age=validator.ReadAge(ageInput);
+        Patient patient=new Patient(pid,pname,age);
+        Console.Write("Enter Medical History: ");
+        string history=Console.ReadLine();
+        patient.SetMedicalHistory(history);
+        Console.Write("Enter Doctor Name: ");
+        string dname=Console.ReadLine();
+        Doctor doctor=new Doctor(dname,"General Physician",123456);
+        AppointmentScheduler scheduler=new AppointmentScheduler();
+        scheduler.ScheduleAppointment(patient,doctor,DateTime.Now.AddDays(1),"Online");
+        DiagnosisService diagnosis=new DiagnosisService();
+        string condition="Normal";
         string risk;
-        int age = p.Age;
-        ds.EvaluatePatient(in age, ref condition, out risk, 80, 75, 60);
-        Console.WriteLine($"Condition: {condition}, Risk: {risk}");
-        BillingService bill = new BillingService
-        {
-            ConsultationFee = 500,
-            TestCharges = 2000,
-            RoomCharges = 4000
-        };
-        double total = bill.CalculateBill();
-        InsuranceService ins = new InsuranceService();
-        double final = ins.ApplyInsurance("40", total.ToString());
-        Console.WriteLine($"Final Payable Amount: {final}");
+        diagnosis.EvaluatePatient(in age,ref condition,out risk,80,65,70);
+        Console.WriteLine("Condition: "+condition);
+        Console.WriteLine("Risk Level: "+risk);
+        BillingService bill=new BillingService{ConsultationFee=500,TestCharges=2500,RoomCharges=3000};
+        double total=bill.CalculateBill();
+        Console.WriteLine("Total Bill: "+total);
+        InsuranceService insurance=new InsuranceService();
+        double final=insurance.ApplyInsurance(30,total);
+        Console.WriteLine("Final Payable After Insurance: "+final);
     }
 }
