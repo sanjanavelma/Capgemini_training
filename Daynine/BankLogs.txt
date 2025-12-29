@@ -1,0 +1,13 @@
+
+----------------------------------------
+DateTime:30-12-2025 00:29:07
+AccountNo:ACC567
+Exception:InsufficientBalanceException: Insufficient Balance. Current Balance:3000, Requested:4000
+   at BankAccounts.Withdraw(Decimal amount) in C:\Users\Sanjana velma\Capgemini_training\Daynine\Banking.cs:line 35
+----------------------------------------
+----------------------------------------
+DateTime:30-12-2025 00:29:07
+AccountNo:ACC890
+Exception:System.ArgumentException: Withdrawal amount must be greater than zero.
+   at BankAccounts.Withdraw(Decimal amount) in C:\Users\Sanjana velma\Capgemini_training\Daynine\Banking.cs:line 33
+----------------------------------------
